@@ -5,9 +5,10 @@
 <h2>Topics page</h2>
     <ul>
         {% for topic in topics %}
-            <li>{{topic}}</li>
+            <li><a href="{% url 'topic' topic.id %}"></a>{{topic}}</li>
         {% empty %}
             <li>No topics have been added yet.</li>
         {% endfor %}
     </ul>
+    <a href="{% url 'new_topic' %}">Add new topic</a>
 {% endblock content %}
