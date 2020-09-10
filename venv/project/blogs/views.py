@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Topic
+from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
 
 from django.http import HttpResponseRedirect
@@ -51,7 +51,26 @@ def new_entry(request, topic_id):
             new_entry = form.save(commit=False)
             new_entry.topic = topic
             new_entry.save()
-            return HttpResponseRedirect(reverse('topic', args=[topic_id]))
+            return HttpResponseRedirect(reverse('topic', args=[topic.id]))
     context = {'topic': topic, 'form': form}
     return render(request, 'blogs/new_entry.html', context)
+
+def edit_entry(request, entry_id):
+    #Editing existing entry
+    entry = Entry.objects.get(id=entry_id)
+    topic = entry.topic
+    #Check data, form full in origin data
+    if request.method != 'POST':
+        form = EntryForm(instance=entry)
+    else:
+        #send data POST, processing
+        form = EntryForm(instance=entry, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('topic', args=[topic.id]))
+
+    context = {'entry': entry, 'topic': topic, 'form': form}
+    return render(request, 'blogs/edit_entry.html', context)
+
+
     
