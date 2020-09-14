@@ -1,6 +1,5 @@
 {% extends "blogs/base.html" %}
 
-
 {% block header %}
 <h2>{{topic}}</h2>
 {% endblock header %}
@@ -26,5 +25,7 @@
         {% empty %}
             There are no entries for this topic yet.
         {% endfor %}
+        
+            <button name="submit">Delete entry</button>
 
 {% endblock content %}
