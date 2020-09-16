@@ -5,18 +5,19 @@
 {% endblock header %}
 
 {% block content %}
-    <ul>
-        {% for topic in topics %}
-    <li>
-    <h3>
-        <a href="{% url 'topic' topic.id %}">{{topic}}</a>
-    </h3>
-    </li>{% empty %}<li>
-        No topics have been added yet.
-    </li>
-        {% endfor %}
-    </ul>
-    
-    <h3><a href="{% url 'new_topic' %}">Add new topic</a></h3>
+    <p>
+        <ul>
+            {% for topic in topics %}
+        <li>
+        <h3>
+            <a href="{% url 'topic' topic.id %}">{{topic}}</a>
+        </h3>
+        </li>{% empty %}<li>
+            No topics have been added yet.
+        </li>
+            {% endfor %}
+        </ul>
+        <br>
+        <br><a class="btn btn-lg btn-primary" href="{% url 'new_topic' %}" role="button">Add new topic</a>
     
 {% endblock content %}
